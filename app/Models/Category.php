@@ -3,13 +3,18 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
-    public function menu(): HasMany
+    use HasFactory;
+
+    protected $table = 'categories';
+    
+    public function menus(): HasMany
     {
-        return $this->hasMany(Menu::class);
+        return $this->hasMany(Menu::class, 'category_id');
     }
 
     protected $fillable = [

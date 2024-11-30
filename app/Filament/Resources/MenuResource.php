@@ -23,13 +23,13 @@ class MenuResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title'),
+                Forms\Components\TextInput::make('title')
+                    ->required(),
                 Forms\Components\Select::make('category_id')
                     ->relationship('category', 'name')
                     ->required(),
                 Forms\Components\MultiSelect::make('promo_id')
-                    ->relationship('promo', 'buy')
-                    ->required(),
+                    ->relationship('promo', 'buy'),
                 Forms\Components\FileUpload::make('cover')
                     ->image()
                     ->directory('menucovers')
@@ -54,6 +54,12 @@ class MenuResource extends Resource
     {
         return $table
             ->columns([
+                // Menampilkan kolom 'cover' dengan gambar
+                Tables\Columns\ImageColumn::make('cover')
+                    ->label('Cover')
+                    ->width(100)  // Mengatur lebar gambar
+                    ->height(100),
+                    
                 // Menampilkan kolom 'title'
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
@@ -68,12 +74,6 @@ class MenuResource extends Resource
                 Tables\Columns\TextColumn::make('promo.buy')
                     ->label('Promo')
                     ->sortable(),
-
-                // Menampilkan kolom 'cover' dengan gambar
-                Tables\Columns\ImageColumn::make('cover')
-                    ->label('Cover')
-                    ->width(100)  // Mengatur lebar gambar
-                    ->height(50),
 
                 // Menampilkan kolom 'price'
                 Tables\Columns\TextColumn::make('price')

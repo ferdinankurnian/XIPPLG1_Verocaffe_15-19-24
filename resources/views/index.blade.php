@@ -7,6 +7,12 @@
     <title>VeroCaffe</title>
     <link rel="shortcut icon" href="assets/verocafesimple.svg" type="image/x-icon">
     @vite('resources/css/app.css')
+    <style>
+    /* Smooth scrolling behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
 
 <body class="font-sans bg-[#F2E8A7] text-gray-800">
@@ -49,9 +55,9 @@
             </div>
         </div>
     </div>
-
-    <!-- Button to trigger modal -->
-    <button id="open-modal" class="px-4 py-2 text-white bg-blue-500 rounded">Open Modal</button>
+<!--
+     Button to trigger modal
+    <button id="open-modal" class="px-4 py-2 text-white bg-blue-500 rounded">Open Modal</button> -->
 
 
     <!-- Header -->
@@ -62,31 +68,38 @@
 				<nav class="text-white">
 					<ul class="flex space-x-6">
 						<li><a href="#" class="hover:text-gray-300">Home</a></li>
-						<li><a href="#" class="hover:text-gray-300">Tentang Kami</a></li>
-						<li><a href="#" class="hover:text-gray-300">Menu</a></li>
-						<li><a href="#" class="hover:text-gray-300">Kontak Kami</a></li>
+						<li><a href="#tentangkami" class="hover:text-gray-300">Tentang Kami</a></li>
+						<li><a href="#menu" class="hover:text-gray-300">Menu</a></li>
+						<li><a href="#kontakkami" class="hover:text-gray-300">Kontak Kami</a></li>
 					</ul>
 				</nav>
 			</div>
-            <button class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
+            <a href="{{ route('login') }}" class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
                 Be a member!
-            </button>
+            </a>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="bg-[#F2E8A7] py-16">
-        <div class="container mx-auto text-center">
-            <h1 class="text-3xl font-bold">Buy 1 Coffee Latte with Croissant</h1>
-            <p class="text-lg mt-2">Free Waffle</p>
-            <button class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Get Now!</button>
+        <div class="container mx-auto px-40 flex flex-row justify-between items-center">
+            <div>
+                <h1 class="text-5xl mb-2 font-bold">Buy 1 Coffee Latte with Croissant</h1>
+                <p class="text-lg font-medium text-slate-600 mt-2">Get Free Waffle</p>
+                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Get Now!</button>
+            </div>
+            <div class="w-[500px] h-[500px] flex flex-col items-center justify-center">
+                <img src="assets/Banner1.png" alt="Banner Verocaffè">
+            </div>
         </div>
     </section>
 
     <!-- Introduction -->
-    <section class="bg-white py-16">
-        <div class="container mx-auto grid grid-cols-2 gap-8 items-center">
-            <img src="assets/about.png" alt="Coffee Shop" class="rounded-lg">
+    <section id="tentangkami" class="bg-white py-28">
+        <div class="container mx-auto px-40 grid grid-cols-2 gap-20 items-center">
+            <div class="flex flex-col items-center justify-center">
+                <img src="assets/about.png" alt="Coffee Shop" class="rounded-lg">
+            </div>
             <div>
                 <h2 class="text-5xl font-bold">Nikmati hari mu dengan VeroCaffe</h2>
                 <p class="mt-4 text-gray-700">From 2020, VeroCaffe is a coffee startup aiming to brew high-quality
@@ -98,29 +111,40 @@
 
     <!-- Menu Section -->
     <section id="menu" class="bg-gray-100 py-16">
-        <div class="container mx-auto">
-            <h2 class="text-2xl font-bold text-center">Categories</h2>
-            <div class="flex justify-center mt-4 space-x-4">
-                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">All Menu</button>
-                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Coffee</button>
-                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Tea</button>
-                <button class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300">Bread</button>
+        <div class="container mx-auto px-40">
+            <h2 class="text-3xl mt-5 font-bold text-center">Menu</h2>
+            <div class="flex justify-center mt-4 gap-4">
+                <div class="bg-[#a1d2ac] rounded-lg p-4 flex flex-col items-center w-24 shadow cursor-pointer category-item" data-category-id="0">
+                    <img src="assets/viewall.svg" alt="View All Items" class="mb-2">
+                    <p class="font-medium text-sm">Semua</p>
+                    <p class="text-xs text-gray-500">{{ $menus->count() }} Items</p>
+                </div>
+
+                @foreach ($categories as $category)
+                    <div class="bg-white rounded-lg p-4 flex flex-col items-center w-24 shadow cursor-pointer category-item" data-category-id="{{ $category->id }}">
+                        <img src="{{ Storage::url($category->icon) }}" alt="{{ $category->name }}" class="mb-2">
+                        <p class="font-medium text-sm">{{ $category->name }}</p>
+                        <p class="text-xs text-gray-500">{{ $category->menus_count }} Items</p>
+                    </div>
+                @endforeach
             </div>
 
-            <div class="grid grid-cols-4 gap-8 mt-8">
-                <!-- Repeatable Card -->
-                <div class="bg-white shadow rounded-lg p-4 text-center">
-                    <img src="latte.jpg" alt="Coffee Latte" class="w-full h-40 object-cover rounded">
-                    <h3 class="text-lg font-bold mt-2">Coffee Latte</h3>
-                    <p class="text-gray-600">Rp. 25.000</p>
-                </div>
-                <!-- Add more items similarly -->
+            <div class="grid grid-cols-4 gap-8 mt-8" id="menu-grid">
+                @foreach ($menus as $menu)
+                    <a role="button" id="open-modal" class="bg-white shadow rounded-lg text-center">
+                        <img src="{{ Storage::url($menu->cover) }}" alt="{{ $menu->title }}" class="w-full object-cover rounded-t-lg">
+                        <div class="p-4">
+                            <h3 class="text-lg font-bold">{{ $menu->title }}</h3>
+                            <p class="text-gray-600">{{ $menu->price }}</p>
+                        </div>
+                    </a>
+                @endforeach
             </div>
         </div>
     </section>
 
     <!-- Contact Form -->
-    <section id="contact" class="py-16 px-32">
+    <section id="kontakkami" class="py-16 px-32">
         <div class="bg-white w-fit mx-auto shadow rounded-lg">
             <div class="mx-auto grid grid-cols-2 gap-5">
                 <iframe style="height: 100%;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15825.475156525223!2d109.22019149428851!3d-7.424376243881278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e655e63847ad525%3A0x1094a0176a4f7eec!2sAlun%20Alun%20Kota%20Purwokerto!5e0!3m2!1sid!2sid!4v1726617185462!5m2!1sid!2sid" width="500" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
