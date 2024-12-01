@@ -1,5 +1,5 @@
 // Navbar Position Control
-window.onscroll = function() {
+window.onscroll = function () {
     scrollFunction()
 };
 
@@ -11,7 +11,7 @@ function scrollFunction() {
         document.getElementById("nav").classList.remove('fixed', 'top-2');
         document.getElementById("nav").classList.add('absolute');
     }
-} 
+}
 
 // Ambil elemen modal dan tombol
 const modal = document.getElementById("modal");
@@ -76,3 +76,77 @@ categoryItems.forEach(item => {
             .catch(error => console.error('Error fetching menus:', error));
     });
 });
+
+
+const slides = document.querySelectorAll('.carousel-item');
+const prev = document.getElementById('prev');
+const next = document.getElementById('next');
+const indicators = document.querySelectorAll('.indicator');
+const totalSlides = slides.length;
+let currentIndex = 0;
+let autoSlideInterval;
+
+// Fungsi untuk memperbarui indikator
+function updateIndicators(index) {
+    indicators.forEach((indicator, i) => {
+        if (i === index) {
+            indicator.classList.remove('bg-gray-300');
+            indicator.classList.add('bg-red-500');
+        } else {
+            indicator.classList.remove('bg-red-500');
+            indicator.classList.add('bg-gray-300');
+        }
+    });
+}
+
+// Fungsi untuk menampilkan slide
+function showSlide(index) {
+    const container = document.querySelector('.overflow-hidden');
+    container.scrollTo({
+        left: index * container.offsetWidth,
+        behavior: 'smooth',
+    });
+    updateIndicators(index);
+}
+
+// Event untuk tombol "prev"
+prev.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    showSlide(currentIndex);
+    resetAutoSlide();
+});
+
+// Event untuk tombol "next"
+next.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    showSlide(currentIndex);
+    resetAutoSlide();
+});
+
+// Event untuk klik pada indikator
+indicators.forEach((indicator) => {
+    indicator.addEventListener('click', (e) => {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        currentIndex = index;
+        showSlide(currentIndex);
+        resetAutoSlide();
+    });
+});
+
+// Fungsi untuk memulai auto-slide
+function startAutoSlide() {
+    autoSlideInterval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        showSlide(currentIndex);
+    }, 5000); // Ganti '5000' dengan durasi dalam milidetik (5 detik dalam contoh ini)
+}
+
+// Fungsi untuk mereset auto-slide
+function resetAutoSlide() {
+    clearInterval(autoSlideInterval); // Hentikan interval saat ini
+    startAutoSlide(); // Mulai interval baru
+}
+
+// Inisialisasi slide pertama dan auto-slide
+showSlide(currentIndex);
+startAutoSlide();

@@ -7,6 +7,7 @@
     <title>VeroCaffe</title>
     <link rel="shortcut icon" href="assets/verocafesimple.svg" type="image/x-icon">
     @vite('resources/css/app.css')
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <style>
     /* Smooth scrolling behavior */
     html {
@@ -82,14 +83,39 @@
 
     <!-- Hero Section -->
     <section class="bg-[#F2E8A7] py-16">
-        <div class="container mx-auto px-40 flex flex-row justify-between items-center">
-            <div>
-                <h1 class="text-5xl mb-2 font-bold">Buy 1 Coffee Latte with Croissant</h1>
-                <p class="text-lg font-medium text-slate-600 mt-2">Get Free Waffle</p>
-                <button class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Get Now!</button>
+        <div class="relative w-full px-32 mx-auto">
+            <!-- Carousel Container -->
+            <div class="flex overflow-hidden">
+                @foreach($banner as $index => $slide)
+                    <div class="carousel-item w-full flex-shrink-0 container mx-auto px-40 flex flex-row justify-between items-center">
+                        <div>
+                            <h1 class="text-5xl mb-2 font-bold">{{ $slide->title }}</h1>
+                            <p class="text-lg font-medium text-slate-600 mt-2">{{ $slide->description }}</p>
+                            <button onclick="openInNewTab('https://maps.app.goo.gl/nvE6A3NEtqA4Fymy5')" class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Visit VeroCaffè</button>
+                        </div>
+                        <div class="w-[500px] h-[500px] flex flex-col items-center justify-center">
+                            <img src="{{ Storage::url($slide->image) }}" alt="{{ $slide->title }}">
+                        </div>
+                    </div>
+                @endforeach
             </div>
-            <div class="w-[500px] h-[500px] flex flex-col items-center justify-center">
-                <img src="assets/Banner1.png" alt="Banner Verocaffè">
+
+            <!-- Navigasi -->
+            <div class="absolute top-1/2 left-8 transform -translate-y-1/2 cursor-pointer">
+                <button id="prev" class="text-2xl"><span class="material-symbols-outlined">chevron_left</span></button>
+            </div>
+            <div class="absolute top-1/2 right-8 transform -translate-y-1/2 cursor-pointer">
+                <button id="next" class="text-2xl"><span class="material-symbols-outlined">chevron_right</span></button>
+            </div>
+
+            <!-- Indikator -->
+            <div class="flex justify-center mt-4 space-x-2">
+                @foreach($banner as $index => $slide)
+                    <div 
+                        class="w-3 h-3 {{ $index === 0 ? 'bg-red-500' : 'bg-gray-300' }} rounded-full indicator"
+                        data-index="{{ $index }}">
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -184,6 +210,11 @@
     </footer>
 
 	<script src="js/script.js"></script>
+    <script>
+        function openInNewTab(url) {
+            window.open(url, '_blank');
+        }
+    </script>
 	
 </body>
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Menu;
+use App\Models\Banner;
 use Illuminate\Support\Facades\DB;
 
 
@@ -12,9 +13,9 @@ class HomeController extends Controller
     public function index()
     {
         $categories = Category::withCount('menus')->get();
-
         $menus = Menu::all();   
-        return view('index', compact('categories', 'menus'));
+        $banner = Banner::all();
+        return view('index', compact('categories', 'menus', 'banner'));
     }
 
     public function filterMenus($category_id)
