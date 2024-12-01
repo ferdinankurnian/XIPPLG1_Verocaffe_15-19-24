@@ -11,3 +11,5 @@ use App\Http\Controllers\UserController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/menus/filter/{category_id}', [HomeController::class, 'filterMenus'])->name('menus.filter');
 Route::get('/login', [UserController::class, 'login'])->name('login');
+Route::get('/register', [UserController::class, 'register'])->name('register');
+Route::get('/member', [UserController::class, 'member'])->name('member');

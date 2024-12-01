@@ -91,7 +91,7 @@
                         <div>
                             <h1 class="text-5xl mb-2 font-bold">{{ $slide->title }}</h1>
                             <p class="text-lg font-medium text-slate-600 mt-2">{{ $slide->description }}</p>
-                            <button onclick="openInNewTab('https://maps.app.goo.gl/nvE6A3NEtqA4Fymy5')" class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Visit VeroCaffè</button>
+                            <button onclick="openInNewTab('https://maps.app.goo.gl/nvE6A3NEtqA4Fymy5')" class="mt-4 px-6 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600">Visit VeroCaffè</button>
                         </div>
                         <div class="w-[500px] h-[500px] flex flex-col items-center justify-center">
                             <img src="{{ Storage::url($slide->image) }}" alt="{{ $slide->title }}">
@@ -194,7 +194,7 @@
                     <div class="mb-4">
                         <label for="message" class="block text-gray-700">Message</label>
                         <textarea id="message" rows="4"
-                        class="w-full px-4 py-2 border rounded focus:outline-none focus:ring"></textarea>
+                        class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring"></textarea>
                     </div>
                     <button class="px-6 py-3 bg-yellow-500 text-white rounded hover:bg-yellow-600">Send Message</button>
                 </form>
