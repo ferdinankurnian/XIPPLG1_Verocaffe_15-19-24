@@ -63,7 +63,7 @@ categoryItems.forEach(item => {
                 menuGrid.innerHTML = ''; // Clear existing menus
                 data.forEach(menu => {
                     menuGrid.innerHTML += `
-                        <a role="button" id="open-modal" class="bg-white shadow rounded-lg text-center">
+                        <a role="button" id="open-modal" class="bg-white shadow rounded-lg text-center" data-id="${menu.id}">
                             <img src="/storage/${menu.cover}" alt="${menu.title}" class="w-full object-cover rounded-t-lg">
                             <div class="p-4">
                                 <h3 class="text-lg font-bold">${menu.title}</h3>
