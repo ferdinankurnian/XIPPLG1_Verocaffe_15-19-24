@@ -26,4 +26,5 @@ Route::post('/contact', [HomeController::class, 'store'])->name('contact.store')
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/member', [UserController::class, 'member'])->name('member');
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 });

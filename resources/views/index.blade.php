@@ -124,9 +124,16 @@
                     </ul>
                 </nav>
             </div>
+            @if(Auth::check())
+            <a href="{{ route('member') }}" class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
+                Go to Dashboard
+            </a>
+            @else
             <a href="{{ route('login') }}" class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
                 Be a member!
             </a>
+            @endif
+
         </div>
     </header>
 

@@ -12,6 +12,12 @@ class UserController extends Controller
 {
     public function login()
     {
+        // Jika user sudah login, redirect ke halaman member
+        if (Auth::check()) {
+            return redirect()->route('member');
+        }
+
+        // Jika belum login, tampilkan halaman login
         return view('login');
 
     }

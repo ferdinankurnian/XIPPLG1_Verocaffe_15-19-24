@@ -124,9 +124,16 @@
                     </ul>
                 </nav>
             </div>
+            <?php if(Auth::check()): ?>
+            <a href="<?php echo e(route('member')); ?>" class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
+                Go to Dashboard
+            </a>
+            <?php else: ?>
             <a href="<?php echo e(route('login')); ?>" class="bg-[#3A5340] text-white px-4 py-2 rounded-lg hover:bg-[#2F4334]">
                 Be a member!
             </a>
+            <?php endif; ?>
+
         </div>
     </header>
 
